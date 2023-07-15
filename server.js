@@ -14,7 +14,7 @@ const Emitter = require('events');
 app.use(cors());
 
 // Database connection
-mongoose.connect('mongodb://127.0.0.1:27017/pizza', {
+mongoose.connect(process.env.MONGO_CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -27,7 +27,7 @@ connection.once('open', () => {
 
 // Session store
 const mongoStore = MongoStore.create({
-  mongoUrl: 'mongodb://127.0.0.1:27017/pizza',
+  mongoUrl: process.env.MONGO_CONNECTION_URL ,
   collection: 'sessions',
   mongooseConnection: connection
 });
@@ -83,6 +83,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Import routes
 require('./routes/web')(app);
+app.use((req, res) => {
+  res.status(404).render('error/404');
+});
 
 // Set the port number
 const PORT = process.env.PORT || 3000;
@@ -96,7 +99,7 @@ const server = app.listen(PORT, () => {
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  console.log('Socket connected id:', socket.id);
+  //console.log('Socket connected id:', socket.id);
 
   socket.on('join', (orderId) => {
   //  console.log(orderId);

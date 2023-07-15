@@ -3,6 +3,7 @@ import Noty from 'noty';
 import { initAdmin } from './admin';
 import moment from 'moment';
 import io from 'socket.io-client';
+import { initStripe } from './stripe';
 
 const addToCart = document.querySelectorAll('.add-to-cart');
 const cartCounter = document.querySelector('#cartCounter');
@@ -71,7 +72,8 @@ function updateStatus(order) {
 if (currentOrder) {
   updateStatus(currentOrder);
 }
-
+//stripe call
+initStripe();
 // Socket
 let socket = io('http://localhost:3000'); // Adjust the URL and port according to your server configuration
 
