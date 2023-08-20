@@ -68,10 +68,10 @@ function updateStatus(order) {
     }
   });
 }
-
 if (currentOrder) {
   updateStatus(currentOrder);
 }
+ 
 //stripe call
 initStripe();
 // Socket

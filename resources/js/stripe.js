@@ -1,11 +1,11 @@
 import { loadStripe } from '@stripe/stripe-js';
 import { placeOrder } from './apiService';
 import { CardWidget } from './CardWidget';
-
+import Noty from 'noty';
+import axios from 'axios';
 export async function initStripe() {
    const stripe = await loadStripe('pk_test_51NTtGQSJgxHyHmEtMUGr8GrjDmPNQA2XuL0nxQSKdNAGbNNkHOBPnnkWpr2VxZG7JmbZhmgmOXKKDPP1ntaGslRq00kmTBXgLt');
    let card = null;
-
    const paymentType = document.querySelector('#paymentType');
    if (!paymentType) {
        return;
